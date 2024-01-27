@@ -76,7 +76,7 @@ function getYoutubeLink(){
 #cat bundle.js | awk "/name: \"Tentacle\"/,/resuelta:/" | grep -vE "id:|sku:|resuelta" | tr -d '"' | tr -d ',' | tr -d 's/^ *//' | grep youtube | awk 'NF{print $NF}'
   machineName="$1"
 
-  youtubeLink="$(cat bundle.js | awk "/name: \"$machineName\"/,/resuelta:/" | grep -vE "id:|sku:|resuelta" | tr -d '"' | tr -d ',' | tr -d 's/^ *//' | grep youtube | awk 'NF{print $NF}')"
+  youtubeLink="$(cat bundle.js | awk "/name: \"$machineName\"/,/resuelta:/" | grep -vE "id:|sku:|resuelta" | grep youtube | tail -n 1 | awk 'NF{print $NF}' | tr -d '"' | tr -d ',')"
 
   if [ "$youtubeLink" ]; then
     echo -e "\n${yellowColour}[+]${endColour}${grayColour} El tutorial para esta máquina esta en el siguiente enlace:${endColour}${blueColour} $youtubeLink${endColour}\n"
